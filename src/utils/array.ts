@@ -24,7 +24,7 @@ export function generatePositions(
   return positions
 }
 
-const SQUARE_SIZE = -20 //%?
+const SQUARE_SIZE = 20 //%?
 
 export function positionsToTransition(
   src: Position,
@@ -56,11 +56,11 @@ export function movesToTransitions(
 
       const src: Position = {
         x: curMove[0],
-        y: curMove[1],
+        y: -curMove[1],
       }
       const dst: Position = {
         x: nextMove[0],
-        y: nextMove[1],
+        y: -nextMove[1],
       }
 
       const transition = positionsToTransition(src, dst)
