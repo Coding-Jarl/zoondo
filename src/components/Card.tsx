@@ -23,7 +23,7 @@ export default function Card({ name, isOwned, ...otherProps }: Props) {
   )
 
   return (
-    <div className={cssClasses} ref={drag}>
+    <div className={cssClasses} ref={isOwned ? drag : null}>
       <Image src={isOwned ? back : backAdv} alt="Hidden Card" />
       <p>{name}</p>
     </div>
