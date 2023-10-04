@@ -7,7 +7,12 @@ import { useBoardStore } from '@/utils/hooks/useBoardStore'
 export default function CardSample() {
   const cardFocus = useBoardStore((state) => state.cardFocus)
 
-  if (!cardFocus) return null
+  if (!cardFocus)
+    return (
+      <div className={styles.wrapper}>
+        <div className={styles.card} />
+      </div>
+    )
 
   const { slug, name, type, corners, value, moves } = cardFocus
 
