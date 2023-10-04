@@ -17,10 +17,7 @@ export default function Card({ name, isOwned, ...otherProps }: Props) {
     item: { name, isOwned, ...otherProps },
   }))
 
-  const cssClasses = clsx(
-    styles.wrapper,
-    isOwned ? styles.isOwned : styles.adversary
-  )
+  const cssClasses = clsx(styles.wrapper, isOwned && styles.isOwned)
 
   return (
     <div className={cssClasses} ref={isOwned ? drag : null}>

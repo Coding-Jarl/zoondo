@@ -14,16 +14,7 @@
     display: none;
   }
 
-  &.adversary img {
+  &:not(.isOwned) img {
     transform: rotate(180deg);
-  }
-
-  &.isOwned:hover {
-    img {
-      display: none;
-    }
-    p {
-      display: block;
-    }
   }
 }
