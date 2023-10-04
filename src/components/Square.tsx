@@ -12,6 +12,7 @@ type Props = {
 }
 
 export default function Square({ card, x, y }: Props) {
+  const cardFocus = useBoardStore((state) => state.cardFocus)
   const setCardFocus = useBoardStore((state) => state.setCardFocus)
   const moveCard = useBoardStore((state) => state.moveCard)
   const [, drop] = useDrop(
@@ -25,24 +26,13 @@ export default function Square({ card, x, y }: Props) {
     [card?.x, card?.y]
   )
   const hHover = () => {
-    if (!card || !card.isOwned) return
+    if (!card || !card.isOwned || cardFocus === card) return
     setCardFocus(card)
-  }
-  const hLeave = () => {
-    setCardFocus(null)
   }
 
   const cssClasses = clsx(styles.wrapper, card ? styles.occupied : styles.empty)
   return (
-    <div
-      ref={drop}
-      className={cssClasses}
-      onMouseEnter={hHover}
-      onMouseLeave={hLeave}
-    >
-      <div style={{ position: 'absolute', background: '#1d1e22' }}>
-        {`(${x};${y})`}
-      </div>
+    <div ref={drop} className={cssClasses} onMouseEnter={hHover}>
       {card && <Card {...card} />}
     </div>
   )
