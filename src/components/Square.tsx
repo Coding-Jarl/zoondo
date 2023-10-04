@@ -18,6 +18,7 @@ export default function Square({ card, x, y }: Props) {
     () => ({
       accept: 'CLOBOULON',
       drop: (item: Game.CardWithPosition) => {
+        console.log(item)
         if (!item) return
         moveCard(item, { x, y })
       },
@@ -41,6 +42,10 @@ export default function Square({ card, x, y }: Props) {
       onMouseLeave={hLeave}
     >
       {card && <Card {...card} />}
+      {/* Log des cases pour débugger plus facilement */}
+      {/* <div style={{ position: 'absolute', background: '#1d1e22' }}>
+        {JSON.stringify({ x, y }, null, 2)}
+      </div> */}
     </div>
   )
 }

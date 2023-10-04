@@ -12,6 +12,7 @@ declare global {
 
     type Corner = number | '*'
     type Move = [X: number, Y: number]
+    type Moves = Move[][];
     type Type =
       | 'chief'
       | 'priest'

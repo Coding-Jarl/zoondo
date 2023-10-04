@@ -12,7 +12,7 @@ export default function Card({ name, isOwned, ...otherProps }: Props) {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'CLOBOULON',
     collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
+      isDragging: monitor.isDragging(),
     }),
     item: { name, isOwned, ...otherProps },
   }))
