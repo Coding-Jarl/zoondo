@@ -9,7 +9,7 @@ import { useDrag } from 'react-dnd'
 type Props = Game.CardOwned
 
 export default function Card({ name, isOwned, ...otherProps }: Props) {
-  const [{ isDragging }, drag] = useDrag(() => ({
+  const [, drag] = useDrag(() => ({
     type: 'CLOBOULON',
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
