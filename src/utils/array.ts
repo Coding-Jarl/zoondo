@@ -24,21 +24,21 @@ export function generatePositions(
   return positions
 }
 
-const SQUARE_SIZE = -20 //%
-type Coordonate = Position
-type Transition = [Coordonate, Coordonate]
+const SQUARE_SIZE = -20 //%?
 
 export function positionsToTransition(
   src: Position,
   dst: Position
-): [Coordonate, Coordonate] {
+): [Game.Coordonate, Game.Coordonate] {
   let coordSrc = { x: src.x * SQUARE_SIZE, y: src.y * SQUARE_SIZE }
   let coordDst = { x: dst.x * SQUARE_SIZE, y: dst.y * SQUARE_SIZE }
 
   return [coordSrc, coordDst]
 }
 
-export function movesToTransitions(moves: Game.Move[][]): Array<Transition> {
+export function movesToTransitions(
+  moves: Game.Move[][]
+): Array<Game.Transition> {
   const movesCopy = JSON.parse(JSON.stringify(moves)) as typeof moves
 
   const fullMoves = movesCopy.map((moveSerie) => {

@@ -33,11 +33,7 @@ export const useBoardStore = create<BoardState>()(
       )
       set(
         produce((state) => {
-          console.log(state.cardsOnBoard[foundCard])
-
           state.cardsOnBoard[foundCard] = { ...card, ...pos }
-
-          console.log(state.cardsOnBoard[foundCard])
         })
       )
     },

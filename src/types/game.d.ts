@@ -62,6 +62,9 @@ declare global {
     }
 
     type CardWithPosition = CardOwned & Position
+
+    type Coordonate = Position
+    type Transition = [Coordonate, Coordonate]
   }
 }
 export {}

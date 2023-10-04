@@ -40,6 +40,9 @@ export default function Square({ card, x, y }: Props) {
       onMouseEnter={hHover}
       onMouseLeave={hLeave}
     >
+      <div style={{ position: 'absolute', background: '#1d1e22' }}>
+        {`(${x};${y})`}
+      </div>
       {card && <Card {...card} />}
     </div>
   )
