@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { produce } from 'immer'
-import { availableCards, cardsOnBoard } from '../data/cards'
+import { availableCards } from '../data/cards'
 
 interface BoardState {
   cardFocus: Game.Card | null
@@ -10,7 +10,7 @@ interface BoardState {
   moveCard: (card: Game.CardWithPosition, pos: Position) => void
 }
 export const useBoardStore = create<BoardState>()(
-  devtools((set) => ({
+  devtools((set, get) => ({
     cardFocus: null,
     cardsOnBoard: [
       { ...availableCards['cloboulon'], x: 0, y: 1, isOwned: true },
@@ -26,15 +26,19 @@ export const useBoardStore = create<BoardState>()(
       { ...availableCards['cloboulon'], x: 4, y: 4, isOwned: false },
       { ...availableCards['cloboulon'], x: 5, y: 4, isOwned: false },
     ] as Game.CardWithPosition[],
-    setCardFocus: (card) => set(() => ({ cardFocus: card })),
+    setCardFocus: (card) => {
+      set(() => ({ cardFocus: card }), false, 'setCardFocus')
+    },
     moveCard: (card, pos) => {
-      const foundCard = cardsOnBoard.findIndex(
+      const foundCard = get().cardsOnBoard.findIndex(
         (candidate) => candidate.x === card.x && candidate.y === card.y
       )
       set(
         produce((state) => {
           state.cardsOnBoard[foundCard] = { ...card, ...pos }
-        })
+        }),
+        false,
+        'moveCard'
       )
     },
   }))
