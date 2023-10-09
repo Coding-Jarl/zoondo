@@ -6,9 +6,19 @@ import styles from '@/styles/components/Square.module.scss'
 import { useDrop } from 'react-dnd'
 
 function canMove(
+  cardsOnBoard: Game.CardWithPosition[],
   token: Game.CardWithPosition,
   { x: toX, y: toY }: Position
 ): boolean {
+  if (
+    cardsOnBoard.some(
+      (candidate) =>
+        candidate.x === toX && candidate.y === toY && candidate.isOwned
+    )
+  ) {
+    return false
+  }
+
   return token.moves
     .flat()
     .some(
@@ -28,6 +38,7 @@ export default function Square({ card, x, y }: Props) {
   const cardFocus = useBoardStore((state) => state.cardFocus)
   const setCardFocus = useBoardStore((state) => state.setCardFocus)
   const moveCard = useBoardStore((state) => state.moveCard)
+  const cardsOnBoard = useBoardStore((state) => state.cardsOnBoard)
   const [{ isOver, canDrop }, drop] = useDrop(
     () => ({
       accept: 'CLOBOULON',
@@ -40,7 +51,7 @@ export default function Square({ card, x, y }: Props) {
         canDrop: !!monitor.canDrop(),
       }),
       canDrop: (item: Game.CardWithPosition) => {
-        return canMove(item, { x, y })
+        return canMove(cardsOnBoard, item, { x, y })
       },
     }),
     [card?.x, card?.y]
