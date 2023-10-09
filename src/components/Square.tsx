@@ -28,7 +28,7 @@ export default function Square({ card, x, y }: Props) {
   const cardFocus = useBoardStore((state) => state.cardFocus)
   const setCardFocus = useBoardStore((state) => state.setCardFocus)
   const moveCard = useBoardStore((state) => state.moveCard)
-  const [{ isOver }, drop] = useDrop(
+  const [{ isOver, canDrop }, drop] = useDrop(
     () => ({
       accept: 'CLOBOULON',
       drop: (item: Game.CardWithPosition) => {
@@ -37,6 +37,7 @@ export default function Square({ card, x, y }: Props) {
       },
       collect: (monitor) => ({
         isOver: !!monitor.isOver(),
+        canDrop: !!monitor.canDrop(),
       }),
       canDrop: (item: Game.CardWithPosition) => {
         return canMove(item, { x, y })
@@ -52,7 +53,8 @@ export default function Square({ card, x, y }: Props) {
   const cssClasses = clsx(
     styles.wrapper,
     card ? styles.occupied : styles.empty,
-    isOver && styles.hovered
+    isOver && styles.hovered,
+    canDrop && styles.authorizedMove
   )
   return (
     <div ref={drop} className={cssClasses} onMouseEnter={hHover}>
