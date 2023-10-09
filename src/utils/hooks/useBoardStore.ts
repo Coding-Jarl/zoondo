@@ -8,6 +8,8 @@ interface BoardState {
   cardsOnBoard: Game.CardWithPosition[]
   setCardFocus: (card: Game.Card | null) => void
   moveCard: (card: Game.CardWithPosition, pos: Position) => void
+  fight: (item: Game.CardWithPosition, adv: Game.CardWithPosition) => void
+  canMove: (token: Game.CardWithPosition, { x, y }: Position) => boolean
 }
 export const useBoardStore = create<BoardState>()(
   devtools((set, get) => ({
@@ -40,6 +42,51 @@ export const useBoardStore = create<BoardState>()(
         false,
         'moveCard'
       )
+    },
+    fight: (item: Game.CardWithPosition, adv: Game.CardWithPosition): void => {
+      const itemStr = item.corners[Math.floor(Math.random() * 4)] as number
+      const advStr = -1 //adv.corners[Math.floor(Math.random() * 4)] as number
+      console.log(`${item.name} attacks ${adv.name}`)
+
+      const fightRes = itemStr - advStr
+      if (fightRes > 0) {
+        set(() => ({
+          cardsOnBoard: get().cardsOnBoard.filter(
+            (candidate) =>
+              !(
+                candidate.x === adv.x &&
+                candidate.y === adv.y &&
+                !candidate.isOwned
+              )
+          ),
+        }))
+      }
+      if (fightRes < 0) {
+      }
+      if (fightRes === 0) {
+      }
+    },
+    canMove: (
+      token: Game.CardWithPosition,
+      { x: toX, y: toY }: Position
+    ): boolean => {
+      if (
+        get().cardsOnBoard.some(
+          (candidate) =>
+            candidate.x === toX && candidate.y === toY && candidate.isOwned
+        )
+      ) {
+        return false
+      }
+
+      return token.moves
+        .flat()
+        .some(
+          ([itemX, itemY]) =>
+            itemX + token.x === toX &&
+            itemY + token.y === toY &&
+            (itemX !== 0 || itemY !== 0)
+        )
     },
   }))
 )
