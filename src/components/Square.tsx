@@ -29,6 +29,17 @@ function canMove(
     )
 }
 
+function fight(
+  item: Game.CardWithPosition,
+  adv: Game.CardWithPosition
+): number {
+  const itemStr = item.corners[Math.floor(Math.random() * 4)] as number
+  const advStr = adv.corners[Math.floor(Math.random() * 4)] as number
+  console.log(`${item.name} attacks ${adv.name}`)
+
+  return itemStr - advStr
+}
+
 type Props = {
   card: Game.CardWithPosition | undefined
   x: number
@@ -44,6 +55,14 @@ export default function Square({ card, x, y }: Props) {
       accept: 'CLOBOULON',
       drop: (item: Game.CardWithPosition) => {
         if (!item) return
+
+        const foundAdv = cardsOnBoard.find(
+          (candidate) => candidate.x === x && candidate.y === y
+        )
+        if (foundAdv) {
+          fight(item, foundAdv)
+        }
+
         moveCard(item, { x, y })
       },
       collect: (monitor) => ({
