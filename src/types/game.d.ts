@@ -41,8 +41,8 @@ declare global {
       corners: [NW: Corner, NE: Corner, SE: Corner, SW: Corner]
       value: number
       moves: Array<Array<Move>>
-      // power:string,
-      // resolver:function
+      power?: string
+      resolver?: function
       // variants?: {
       //   corners?: Card['corners']
       //   moves?: Card['moves']

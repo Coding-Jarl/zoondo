@@ -34,9 +34,12 @@ export const availableCards: Record<string, Game.Card> = {
     name: 'Cloboulon',
     type: 'chief',
     corners: [4, 5, '*', 2],
-    // power:
-    //     "Le combat se solde par une égalité. Si tu viens de déplacer Cloboulon, tu déplaces un Grognard.",
-    // resolver: cloboulonResolver,
+    power:
+      'Le combat se solde par une égalité. Si tu viens de déplacer Cloboulon, tu déplaces un Grognard.',
+    resolver: () => {
+      console.log('ARBIIIIIIIIITRE !!!!!!!')
+      return 0
+    },
     value: 20,
     moves: [
       [[-1, 0]],
@@ -54,9 +57,12 @@ export const availableCards: Record<string, Game.Card> = {
     name: 'Gold-Hure',
     type: 'hero',
     corners: [4, 4, 2, '*'],
-    // power:
-    //     "Le combat se solde par une égalité. Si tu viens de déplacer Gold-Hure, tu le déplaces à nouveau.",
-    // resolver: goldHureResolver,
+    power:
+      'Le combat se solde par une égalité. Si tu viens de déplacer Gold-Hure, tu le déplaces à nouveau.',
+    resolver: () => {
+      console.log('ARBIIIIIIIIITRE !!!!!!!')
+      return 0
+    },
     value: 24,
     moves: [
       [[-1, 0]],
@@ -86,9 +92,12 @@ export const availableCards: Record<string, Game.Card> = {
     name: 'Bouclefeuille',
     type: 'priest',
     corners: [2, 0, 0, '*'],
-    // resolver: bouclefeuilleResolver,
-    // power:
-    //     "Le combat se solde par une égalité. Tu déplaces Bouclefeuille dans une case libre du champ de bataille.",
+    resolver: () => {
+      console.log('ARBIIIIIIIIITRE !!!!!!!')
+      return 0
+    },
+    power:
+      'Le combat se solde par une égalité. Tu déplaces Bouclefeuille dans une case libre du champ de bataille.',
     value: 2,
     moves: [[[-1, 0]], [[1, 0]]],
   },
