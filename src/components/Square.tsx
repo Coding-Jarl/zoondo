@@ -23,13 +23,15 @@ export default function Square({ card, x, y }: Props) {
       drop: (item: Game.CardWithPosition) => {
         if (!item) return
 
+        let canMove = true
         const foundAdv = cardsOnBoard.find(
           (candidate) => candidate.x === x && candidate.y === y
         )
         if (foundAdv) {
           const hasWon = fight(item, foundAdv)
-          if (hasWon) moveCard(item, { x, y })
-        } else {
+          if (!hasWon) canMove = false
+        }
+        if (canMove) {
           moveCard(item, { x, y })
         }
       },
