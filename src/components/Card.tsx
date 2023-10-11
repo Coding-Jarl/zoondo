@@ -11,9 +11,7 @@ type Props = Game.CardOwned
 export default function Card({ name, isOwned, ...otherProps }: Props) {
   const [, drag] = useDrag(() => ({
     type: 'CLOBOULON',
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
+
     item: { name, isOwned, ...otherProps },
   }))
 
