@@ -14,7 +14,7 @@ export default function CardSample() {
       </div>
     )
 
-  const { slug, name, type, corners, value, moves } = cardFocus
+  const { slug, name, type, corners, value, moves, power } = cardFocus
 
   let squares = utils.generatePositions(-2, 2)
 
@@ -71,6 +71,7 @@ export default function CardSample() {
         </div>
         <div className={styles.name}>{name}</div>
       </div>
+      <div>{power}</div>
     </div>
   )
 }
