@@ -3,7 +3,6 @@ import Board from '@/components/Board'
 import CardSample from '@/components/CardSample'
 import Square from '@/components/Square'
 import * as utils from '@/utils'
-import { cardsOnBoard, availableCards } from '@/utils/data/cards'
 import { useBoardStore } from '@/utils/hooks/useBoardStore'
 
 import styles from '@/styles/layouts/PageGame.module.scss'
