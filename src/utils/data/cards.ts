@@ -38,6 +38,9 @@ export const availableCards: Record<string, Game.Card> = {
       'Le combat se solde par une égalité. Si tu viens de déplacer Cloboulon, tu déplaces un Grognard.',
     resolver: () => {
       console.log('ARBIIIIIIIIITRE !!!!!!!')
+      console.log(
+        'Cloboulon says: Si tu viens de déplacer Cloboulon, tu déplaces un Grognard.'
+      )
       return 0
     },
     value: 20,
@@ -61,6 +64,10 @@ export const availableCards: Record<string, Game.Card> = {
       'Le combat se solde par une égalité. Si tu viens de déplacer Gold-Hure, tu le déplaces à nouveau.',
     resolver: () => {
       console.log('ARBIIIIIIIIITRE !!!!!!!')
+      console.log(
+        'Gold-Hure says: Si tu viens de déplacer Cloboulon, tu déplaces un Grognard.'
+      )
+
       return 0
     },
     value: 24,
@@ -94,6 +101,10 @@ export const availableCards: Record<string, Game.Card> = {
     corners: [2, 0, 0, '*'],
     resolver: () => {
       console.log('ARBIIIIIIIIITRE !!!!!!!')
+      console.log(
+        'Bouclefeuille says: Si tu viens de déplacer Cloboulon, tu déplaces un Grognard.'
+      )
+
       return 0
     },
     power:
