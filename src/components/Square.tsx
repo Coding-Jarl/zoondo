@@ -11,7 +11,6 @@ type Props = {
   y: number
 }
 export default function Square({ card, x, y }: Props) {
-  const cardFocus = useBoardStore((state) => state.cardFocus)
   const setCardFocus = useBoardStore((state) => state.setCardFocus)
   const moveCard = useBoardStore((state) => state.moveCard)
   const cardsOnBoard = useBoardStore((state) => state.cardsOnBoard)
@@ -28,10 +27,11 @@ export default function Square({ card, x, y }: Props) {
           (candidate) => candidate.x === x && candidate.y === y
         )
         if (foundAdv) {
-          fight(item, foundAdv)
+          const hasWon = fight(item, foundAdv)
+          if (hasWon) moveCard(item, { x, y })
+        } else {
+          moveCard(item, { x, y })
         }
-
-        moveCard(item, { x, y })
       },
       collect: (monitor) => ({
         isOver: !!monitor.isOver(),
@@ -45,7 +45,7 @@ export default function Square({ card, x, y }: Props) {
   )
 
   const hHover = () => {
-    if (!card || !card.isOwned || cardFocus === card) return
+    if (!card || !card.isOwned) return
     setCardFocus(card)
   }
 

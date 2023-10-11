@@ -8,7 +8,7 @@ interface BoardState {
   cardsOnBoard: Game.CardWithPosition[]
   setCardFocus: (card: Game.Card | null) => void
   moveCard: (card: Game.CardWithPosition, pos: Position) => void
-  fight: (item: Game.CardWithPosition, adv: Game.CardWithPosition) => void
+  fight: (item: Game.CardWithPosition, adv: Game.CardWithPosition) => boolean
   canMove: (token: Game.CardWithPosition, { x, y }: Position) => boolean
 }
 export const useBoardStore = create<BoardState>()(
@@ -43,28 +43,50 @@ export const useBoardStore = create<BoardState>()(
         'moveCard'
       )
     },
-    fight: (item: Game.CardWithPosition, adv: Game.CardWithPosition): void => {
+    fight: (
+      item: Game.CardWithPosition,
+      adv: Game.CardWithPosition
+    ): boolean => {
       const itemStr = item.corners[Math.floor(Math.random() * 4)] as number
-      const advStr = -1 //adv.corners[Math.floor(Math.random() * 4)] as number
-      console.log(`${item.name} attacks ${adv.name}`)
+      const advStr = adv.corners[Math.floor(Math.random() * 4)] as number
 
       const fightRes = itemStr - advStr
       if (fightRes > 0) {
-        set(() => ({
-          cardsOnBoard: get().cardsOnBoard.filter(
-            (candidate) =>
-              !(
-                candidate.x === adv.x &&
-                candidate.y === adv.y &&
-                !candidate.isOwned
-              )
-          ),
-        }))
+        set(
+          () => ({
+            cardsOnBoard: get().cardsOnBoard.filter(
+              (candidate) =>
+                !(
+                  candidate.x === adv.x &&
+                  candidate.y === adv.y &&
+                  !candidate.isOwned
+                )
+            ),
+          }),
+          false,
+          'fight'
+        )
+        return true
       }
       if (fightRes < 0) {
+        set(
+          () => ({
+            cardsOnBoard: get().cardsOnBoard.filter(
+              (candidate) => !(candidate.x === item.x && candidate.y === item.y)
+            ),
+          }),
+          false,
+          'fight'
+        )
+        return false
       }
       if (fightRes === 0) {
+        return false
       }
+      // Cas joker "*"
+      console.log("Appelle l'arbitre !")
+
+      return false
     },
     canMove: (
       token: Game.CardWithPosition,
