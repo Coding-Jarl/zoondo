@@ -47,10 +47,17 @@ export const useBoardStore = create<BoardState>()(
       item: Game.CardWithPosition,
       adv: Game.CardWithPosition
     ): boolean => {
-      const itemStr = item.corners[Math.floor(Math.random() * 4)] as number
-      const advStr = adv.corners[Math.floor(Math.random() * 4)] as number
+      let itemStr = item.corners[Math.floor(Math.random() * 4)]
+      let advStr = adv.corners[Math.floor(Math.random() * 4)]
 
-      const fightRes = itemStr - advStr
+      // Cas joker "*"
+      let fightRes: number
+      if (itemStr === '*') fightRes ??= item.resolver()
+      if (advStr === '*') fightRes ??= adv.resolver()
+
+      // NB:Les resolvers mettent normalement fin prematurement au combat
+      fightRes ??= (itemStr as number) - (advStr as number)
+
       if (fightRes > 0) {
         set(
           () => ({
@@ -83,8 +90,6 @@ export const useBoardStore = create<BoardState>()(
       if (fightRes === 0) {
         return false
       }
-      // Cas joker "*"
-      console.log("Appelle l'arbitre !")
 
       return false
     },
